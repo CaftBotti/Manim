@@ -1,0 +1,227 @@
+#!/usr/bin/env python
+
+# Made by CaftBotti
+# This is my first manim python animation file.  17:34 11/08/2022 DD MM YYYY
+
+# Importing
+import math
+from manimlib.imports import *
+
+
+class Ani5(ThreeDScene):
+    def construct(self):
+        # Define variables
+        copyright = Text('Made by CaftBotti',
+                         font='HGB4_CNKI',
+                         t2c={'CaftBotti': YELLOW}).scale(2)
+        text1 = Text('This is a point',
+                     color=YELLOW,
+                     font='HGB4_CNKI').scale(2)
+        text2 = Text('This is a line',
+                     color=YELLOW,
+                     font='HGB4_CNKI').scale(2)
+        # text3 = Text('This is a plot',
+        #             color=YELLOW,
+        #             font='HGB4_CNKI').scale(2)
+        text = Text('This is a square',
+                    color=YELLOW,
+                    font='HGB4_CNKI').scale(2)
+        txt1 = Text('This is a circle',
+                    color=BLUE,
+                    font='HGB4_CNKI').scale(2)
+        txt2 = Text('This is a triangle',
+                    color=BLUE,
+                    font='HGB4_CNKI').scale(2)
+        txt2.to_edge(UP, buff=1)
+        txt3 = Text('This is another triangle',
+                    color=BLUE,
+                    font='HGB4_CNKI').scale(2)
+        txt3.to_edge(UP, buff=1.5)
+        txt4 = Text('This is an ellipse',
+                    color=GREEN,
+                    font='HGB4_CNKI').scale(2)
+        txt4.to_edge(UP, buff=1.5)
+        txt5 = Text('This is a quadrangle',
+                    color=GREEN,
+                    font='HGB4_CNKI').scale(2)
+        txt5.to_edge(UP, buff=1.5)
+        txt6 = Text('This is a cube',
+                    color=PURPLE,
+                    font='HGB4_CNKI').scale(2)
+        txt6.to_edge(UP, buff=1.5)
+        txt7 = Text('This is a sphere',
+                    color=YELLOW,
+                    font='HGB4_CNKI').scale(2)
+        txt7.to_edge(UP, buff=1.5)
+        txt8 = Text('Thanks for watching!',
+                    color=YELLOW,
+                    font='HGB4_CNKI',
+                    t2c={'T': RED,
+                         'h': ORANGE,
+                         'a': YELLOW,
+                         'n': GREEN,
+                         'k': WHITE,
+                         's': BLUE,
+                         'f': PURPLE,
+                         'o': GRAY,
+                         'r': YELLOW,
+                         'w': GREEN,
+                         'c': WHITE,
+                         't': PURPLE,
+                         'i': RED,
+                         'g': ORANGE}).scale(1.5)
+        dot1 = Dot(
+            color=BLUE
+        )
+        line1 = Line(
+            start=[-1, 0, 0],
+            end=[1, 0, 0]
+        )
+        sq1 = Square()
+        cir1 = Circle(
+            color=WHITE
+        )
+        tri1 = Triangle(
+            color=WHITE
+        )
+        p1 = np.array([-1, -1.2, 0])
+        p2 = np.array([1.5, -1.2, 0])
+        p3 = np.array([2, 1, 0])
+        p4 = np.array([-3, 0.3, 0])
+        tri2 = Polygon(p1, p2, p3)
+        elli1 = Ellipse(
+            width=2.0,
+            height=1.1,
+            color=YELLOW
+        )
+        sq2 = Polygon(p1, p2, p3, p4)
+        sq2.set_stroke(color=YELLOW)
+        cube1 = Cube(side_length=2,
+                     fill_color=BLUE,
+                     stroke_color=BLACK,
+                     stroke_width=3)
+        sph1 = Sphere()
+        plot1 = {
+            'y_max': 50,
+            'y_min': 0,
+            'x_max': 50,
+            'x_min': 0,
+            'y_tick_frequency': 5,
+            'x_tick_frequency': 5,
+            'axes_color': BLUE,
+        }
+        # Animations
+        # -----------------
+        self.add_sound('beautiful', gain=-11)
+        self.play(FadeIn(copyright))
+        self.wait(5)
+        self.play(FadeOut(copyright))
+
+        self.play(Write(text1))
+        self.wait(1)
+        self.play(text1.move_to, UP * 2)
+
+        self.play(Write(dot1))
+        self.wait(3)
+
+        self.remove(text1)
+        self.remove(dot1)
+
+        # -----------------
+        self.play(Write(text2))
+        self.wait(1)
+        self.play(text2.move_to, UP * 2)
+
+        self.play(Write(line1))
+        self.wait(3)
+
+        self.remove(text2)
+        self.remove(line1)
+
+        # -----------------
+        # self.play(Write(text3))
+        # self.wait(1)
+        # self.play(text3.move_to, UP * 2)
+
+        # self.play(Write(plot1))
+        # self.wait(3)
+
+        # self.remove(text3)
+        # self.remove(plot1)
+
+        # -----------------
+        self.play(Write(text))
+        self.wait(1)
+        self.play(text.move_to, UP * 2)
+        self.play(Write(sq1))
+
+        self.play(FadeOut(text))
+        self.play(FadeOut(sq1))
+
+        # -----------------
+        self.play(Write(txt1))
+        self.wait(1)
+        self.play(txt1.shift, UP * 2)
+
+        self.play(Write(cir1))
+        self.wait(3)
+        self.remove(txt1)
+
+        self.play(Transform(txt1, txt2))
+        self.wait(1)
+        self.play(Transform(cir1, tri1))
+        self.wait(3)
+        self.remove(txt1)
+
+        self.play(Transform(txt2, txt3))
+        self.wait(1)
+        self.play(Transform(cir1, tri2))
+        self.wait(3)
+        self.remove(txt2)
+
+        # -----------------
+        self.play(Transform(txt3, txt4))
+        self.wait(1)
+        self.remove(cir1), self.play(Transform(tri2, elli1))
+
+        self.wait(3)
+        self.remove(txt3)
+
+        # -----------------
+        self.play(Transform(txt4, txt5))
+        self.wait(1)
+        self.remove(tri2), self.play(Transform(elli1, sq2))
+
+        self.wait(3)
+        self.remove(txt4)
+
+        # -----------------
+        self.play(Transform(txt5, txt6))
+        self.wait(1)
+        self.remove(elli1), self.play(Transform(sq2, cube1))
+        self.move_camera(phi=40 * DEGREES, theta=0 * DEGREES)
+
+        self.wait(3)
+        self.move_camera(phi=0 * DEGREES, theta=0 * DEGREES, gamma=0 * DEGREES)
+        self.reset_camera()
+        self.remove(txt5)
+
+        # -----------------
+        self.play(Transform(txt6, txt7))
+        self.wait(1)
+        self.remove(sq2), self.play(Transform(cube1, sph1))
+        self.move_camera(phi=40 * DEGREES, theta=0 * DEGREES)
+
+        self.wait(2)
+        self.reset_camera()
+        self.play(txt6.move_to, LEFT * 2)
+        self.move_camera(phi=0 * DEGREES, gamma=0 * DEGREES)
+        self.play(Rotating(txt6, radians=0.5 * PI, axis=OUT, run_time=2))
+        self.wait(3)
+        self.play(FadeOut(txt6))
+        self.play(FadeOut(cube1))
+
+        # -----------------
+        self.move_camera(gamma=90 * DEGREES)
+        self.play(Write(txt8, rotate=0.5 * PI, axis=OUT))
+        self.wait(5)
