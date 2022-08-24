@@ -1,4 +1,5 @@
 # Manim
+NEWS: Fourier graphs package is available!
 Some manim projects Made by CaftBotti
 These files are about shapes, arithmetics and function changes, and so on.
 All the resources are PUBLIC. Everyone can use them.
