@@ -1,0 +1,506 @@
+#!/usr/bin/env python
+
+# Importing
+import math
+from manimlib.imports import *
+
+# Although i don't know why, I can't use NumberPlane(). See my issue: https://github.com/ManimCommunity/manim/issues/2928
+# Some bugs: sinh, tanh, cosh graphs cannot be shown correctly if no animations after
+
+class Ani8(GraphScene, MovingCameraScene):
+    CONFIG = {
+        'axis_config': {
+            'stroke_color': WHITE
+        },
+        'max_val': {
+            "x_min": -100,
+            "x_max": 100,
+            "y_min": -100,
+            "y_max": 100
+        },
+        "graph_origin": ORIGIN,
+        "y_line_frequency": 1,
+        "x_line_frequency": 1,
+        "axes_color": BLUE,
+        "x_min": -100,
+        "x_max": 100, "y_min": -100,
+        "y_max": 100,
+        "x_axis_width": 200,
+        "y_axis_height": 200,
+        'get_axis': 0,
+        'x_labeled_nums': range(-100, 100, 1),
+        'y_labeled_nums': range(-100, 100, 1)
+    }
+
+    def setup(self):
+        GraphScene.setup(self)
+        MovingCameraScene.setup(self)
+        # MUST BE ADDED IF 2 OR MORE SCENES TOGETHER!
+
+    def construct(self):
+
+
+        title = Text('Function Graphs',
+                     color=YELLOW,
+                     font='HGB4_CNKI').scale(2.3)
+        copyright = Text('Made by CaftBotti',
+                         t2c={'CaftBotti': YELLOW},
+                         font='HGB4_CNKI').scale(2)
+        dot = Dot()
+
+        t1 = Text('y=x',
+                  font='HGB4_CNKI',
+                  slant=ITALIC).scale(1)
+        t1.move_to([-5.3, 3, 0])
+        t2 = Text('y=x+1',
+                  font='HGB4_CNKI',
+                  slant=ITALIC).scale(1)
+        t2.move_to([-5.3, 3, 0])
+        t3 = Text('y=2x',
+                  font='HGB4_CNKI',
+                  slant=ITALIC).scale(1)
+        t3.move_to([-5.3, 3, 0])
+        t4 = Text('y=2x+1',
+                  font='HGB4_CNKI',
+                  slant=ITALIC).scale(1)
+        t4.move_to([-5.3, 3, 0])
+        t5 = Text('y=-x',
+                  font='HGB4_CNKI',
+                  slant=ITALIC).scale(1)
+        t5.move_to([-5.3, 3, 0])
+        t6 = Text('y=-3x',
+                  font='HGB4_CNKI',
+                  slant=ITALIC).scale(1)
+        t6.move_to([-5.3, 3, 0])
+        t7 = Text('y=-3x-2',
+                  font='HGB4_CNKI',
+                  slant=ITALIC).scale(1)
+        t7.move_to([-5.3, 3, 0])
+        t8 = TexMobject('y & = x^{2}',
+                        font='HGB4_CNKI',
+                        slant=ITALIC).scale(1)
+        t8.move_to([-5.3, 3, 0])
+        t9 = TexMobject(
+            'y & = x^{2}+1',
+
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t9.move_to([-5.3, 3, 0])
+        t10 = TexMobject(
+            'y & = x^{3}',
+
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t10.move_to([-5.3, 3, 0])
+        t11 = TexMobject(
+            r'y = \frac{\cos y}{\tan xy} ',
+
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t11.move_to([-5.3, 3, 0])
+        t11 = TexMobject(
+            r'y = \frac{\cos y}{\tan xy} ',
+
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t11.move_to([-5.3, 3, 0])
+        t12 = TexMobject(
+            r'y = \frac{\cos x}{\tan 8} +\frac{\sin \cos x^{6}\sin x }{\sin 590^{2} +61^{8}}     ',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t12.move_to([-3, 3, 0])
+        t13 = TexMobject(
+            r'x \bmod x^{25}>0.3  ',
+
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t13.move_to([-5.3, 3, 0])
+        t14 = TexMobject(
+            r'y=\log_{3}{x^{\pi}}',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t14.move_to([-5.3, 3, 0])
+        t15 = TexMobject(
+            r'y=\sin x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t15.move_to([-5.3, 3, 0])
+        t16 = TexMobject(
+            r'y=\cos x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t16.move_to([-5.3, 3, 0])
+        t17 = TexMobject(
+            r'y=\tan x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t17.move_to([-5.3, 3, 0])
+        t18 = TexMobject(
+            r'y=\sinh x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t18.move_to([-5.3, 3, 0])
+        t19 = TexMobject(
+            r'y=\cosh x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t19.move_to([-5.3, 3, 0])
+        t20 = TexMobject(
+            r'y=\tanh x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t20.move_to([-5.3, 3, 0])
+        t21 = TexMobject(
+            r'y=\frac {\sin x}{\tan 8}',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t21.move_to([-5.3, 3, 0])
+        t22 = TexMobject(
+            r'y=\sin \cos x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t22.move_to([-5.3, 3, 0])
+        t23 = TexMobject(
+            r'y=\sin \tan x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t23.move_to([-5.3, 3, 0])
+        t24 = TexMobject(
+            r'y=\sin \sin x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t24.move_to([-5.3, 3, 0])
+        t25 = TexMobject(
+            r'y=\sin \tan \cos x',
+            font='HGB4_CNKI',
+            slant=ITALIC).scale(1)
+        t25.move_to([-5.3, 3, 0])
+        thanks = Text('Thanks for watching!',
+                      font='HGB4_CNKI',).scale(2)
+        # numberplane = NumberPlane(x_range = (0, 7),
+        #     y_range = (0, 5),
+        #     x_length = 7,
+        #     axis_config={"include_numbers": True},)
+
+        self.add_sound('beautiful')
+
+        self.play(FadeIn(copyright))
+        self.wait(5)
+        self.play(FadeOut(copyright))
+        self.play(Write(title))
+        self.wait(3)
+        self.play(FadeOut(title))
+
+        self.setup_axes(animate=True)
+
+        func1 = self.get_graph(
+            lambda x: x,
+            color=GREEN,
+            # x_min=-7,
+            # x_max=7
+        )
+        func2 = self.get_graph(
+            lambda x: x + 1,
+            color=BLUE,
+            # x_min=-7,
+            # x_max=7
+        )
+        func3 = self.get_graph(
+            lambda x: 2 * x,
+            color=ORANGE,
+            # x_min=-7,
+            # x_max=7
+        )
+        func4 = self.get_graph(
+            lambda x: 2 * x + 1,
+            color=YELLOW,
+            # x_min=-7,
+            # x_max=7
+        )
+        func5 = self.get_graph(
+            lambda x: -x,
+            color=PURPLE,
+            # x_min=-7,
+            # x_max=7
+        )
+        func6 = self.get_graph(
+            lambda x: -x * 3,
+            color=RED,
+            # x_min=-7,
+            # x_max=7
+        )
+        func7 = self.get_graph(
+            lambda x: -x * 3 - 2,
+            color=WHITE,
+            # x_min=-7,
+            # x_max=7
+        )
+        func8 = self.get_graph(
+            lambda x: x ** 2,
+            color=BLUE,
+            # x_min=-7,
+            # x_max=7
+        )
+        func9 = self.get_graph(
+            lambda x: x ** 2 + 1,
+            color=GREEN,
+            # x_min=-7,
+            # x_max=7
+        )
+        func10 = self.get_graph(
+            lambda x: x ** 3,
+            color=YELLOW,
+            # x_min=-7,
+            # x_max=7
+        )
+        func11 = self.get_graph(
+            lambda x: math.cos(x) / math.tan(5),
+            color=MAROON_A,
+            # x_min=-7,
+            # x_max=7
+        )
+        func12 = self.get_graph(
+            lambda x: math.cos(x) / math.tan(8) + math.sin(math.cos(x ** 6 * math.sin(x))) / math.sin(
+                (590 ** 2) + (61 ** 8)),
+            color=PURPLE_E,
+            # x_min=-7,
+            # x_max=7
+        )
+        func13 = self.get_graph(
+            lambda x: x % x ** 25 > 0.3,
+            color=GRAY,
+            # x_min=-7,
+            # x_max=7
+        )
+        func14 = self.get_graph(
+            lambda x: np.log(x ** PI) / np.log(3),
+            color=BLUE_B
+        )
+        func15 = self.get_graph(
+            lambda x: math.sin(x),
+            color=GREEN_C
+        )
+        func16 = self.get_graph(
+            lambda x: math.cos(x),
+            color=RED_C
+        )
+        func17 = self.get_graph(
+            lambda x: math.tan(x),
+            color=WHITE
+        )
+        func18 = self.get_graph(
+            lambda x: math.sinh(x),
+            color=YELLOW
+        )
+        func19 = self.get_graph(
+            lambda x: math.cosh(x),
+            color=ORANGE
+        )
+        func20 = self.get_graph(
+            lambda x: math.tanh(x),
+            color=BLUE_A
+        )
+        func21 = self.get_graph(
+            lambda x: math.sin(x) / math.tan(8),
+            color=MAROON_B
+        )
+        func22 = self.get_graph(
+            lambda x: math.sin(math.cos(x)),
+            color=GREEN_C
+        )
+        func23 = self.get_graph(
+            lambda x: math.sin(math.tan(x)),
+            color=GOLD_C
+        )
+        func24 = self.get_graph(
+            lambda x: math.sin(math.sin(x)),
+            color=RED_B
+        )
+        func25 = self.get_graph(
+            lambda x: math.sin(math.tan(math.cos(x))),
+            color=PURPLE
+        )
+
+        # self.play(Write(numberplane))
+
+        self.play(Write(dot))
+
+        self.play(FadeIn(t1))
+        self.wait(2)
+        self.play(Write(func1))
+
+        self.wait(5)
+        self.remove(t1)
+        self.play(Transform(t1, t2))
+        self.remove(func1)
+        self.play(Transform(func1, func2))
+
+        self.wait(5)
+        self.remove(t1, t2)
+        self.play(Transform(t2, t3))
+        self.remove(func1, func2)
+        self.play(Transform(func2, func3))
+
+        self.wait(5)
+        self.remove(t2, t3)
+        self.play(Transform(t3, t4))
+        self.remove(func2, func3)
+        self.play(Transform(func3, func4))
+
+        self.wait(5)
+        self.remove(t3, t4)
+        self.play(Transform(t4, t5))
+        self.remove(func3, func4)
+        self.play(Transform(func4, func5))
+
+        self.wait(5)
+        self.remove(t4, t5)
+        self.play(Transform(t5, t6))
+        self.remove(func4, func5)
+        self.play(Transform(func5, func6))
+
+        self.wait(5)
+        self.remove(t5, t6)
+        self.play(Transform(t6, t7))
+        self.remove(func5, func6)
+        self.play(Transform(func6, func7))
+
+        self.wait(5)
+        self.remove(t6, t7)
+        self.play(Transform(t7, t8))
+        self.remove(func6, func7)
+        self.play(Transform(func7, func8))
+
+        self.wait(5)
+        self.remove(t7, t8)
+        self.play(Transform(t8, t9))
+        self.remove(func7, func8)
+        self.play(Transform(func8, func9))
+
+        self.wait(5)
+        self.remove(t8, t9)
+        self.play(Transform(t9, t10))
+        self.remove(func8, func9)
+        self.play(Transform(func9, func10))
+
+        self.wait(5)
+        self.remove(t9, t10)
+        self.play(Transform(t10, t11))
+        self.remove(func9, func10)
+        self.play(Transform(func10, func11))
+
+        self.wait(5)
+        self.remove(t10, t11)
+        self.play(Transform(t11, t12))
+        self.remove(func10, func11)
+        self.play(Transform(func11, func12))
+
+        # self.wait(5)
+        # self.remove(t11, t12)
+        # self.play(Transform(t12, t13))
+        # self.remove(func11, func12)
+        # self.play(Transform(func12, func13))
+        # # self.activate_zooming(animate=True)
+        # self.camera_frame.save_state()
+        # self.play(self.camera_frame.set_width, dot.get_width() * 200,
+        #           self.camera_frame.move_to, dot)
+
+        self.wait(5)
+        self.remove(t11, t12)
+        self.play(Transform(t12, t13))
+        self.remove(func11, func12)
+        self.play(Transform(func12, func13))
+
+        # self.wait(5)
+        # self.play(Restore(self.camera_frame))
+        # self.remove(t12, t13)
+        # self.play(Transform(t13, t14))
+        # self.remove(func12, func13)
+        # self.play(Transform(func13, func14))
+
+        self.wait(5)
+        self.remove(t12, t13)
+        self.play(Transform(t13, t14))
+        self.remove(func12, func13)
+        self.play(Transform(func13, func14))
+        self.wait(2)
+        # self.activate_zooming(animate=True)
+        self.camera_frame.save_state()
+        self.play(self.camera_frame.set_width, dot.get_width() * 500,
+                  self.camera_frame.move_to, dot)
+
+        self.wait(5)
+        self.play(Restore(self.camera_frame))
+        self.remove(t13, t14)
+        self.play(Transform(t14, t15))
+        self.remove(func13, func14)
+        self.play(Transform(func14, func15))
+
+        self.wait(5)
+        self.remove(t14, t15)
+        self.play(Transform(t15, t16))
+        self.remove(func14, func15)
+        self.play(Transform(func15, func16))
+
+        self.wait(5)
+        self.remove(t15, t16)
+        self.play(Transform(t16, t17))
+        self.remove(func15, func16)
+        self.play(Transform(func16, func17))
+
+        self.wait(5)
+        self.remove(t16, t17)
+        self.play(Transform(t17, t18))
+        self.remove(func16, func17)
+        self.play(Transform(func17, func18))
+
+        self.wait(5)
+        self.add_sound(r'C:\beibi\a\media\designs\sounds\indian', gain=-9)
+        self.remove(t17, t18)
+        self.play(Transform(t18, t19))
+        self.remove(func17, func18)
+        self.play(Transform(func18, func19))
+
+        self.wait(5)
+        self.remove(t18, t19)
+        self.play(Transform(t19, t20))
+        self.remove(func18, func19)
+        self.play(Transform(func19, func20))
+
+        self.wait(5)
+        self.remove(t19, t20)
+        self.play(Transform(t20, t21))
+        self.remove(func19, func20)
+        self.play(Transform(func20, func21))
+
+        self.wait(5)
+        self.remove(t20, t21)
+        self.play(Transform(t21, t22))
+        self.remove(func20, func21)
+        self.play(Transform(func21, func22))
+
+        self.wait(5)
+        self.remove(t21, t22)
+        self.play(Transform(t22, t23))
+        self.remove(func21, func22)
+        self.play(Transform(func22, func23))
+
+        self.wait(5)
+        self.remove(t22, t23)
+        self.play(Transform(t23, t24))
+        self.remove(func22, func23)
+        self.play(Transform(func23, func24))
+
+        self.wait(5)
+        self.remove(t23, t24)
+        self.play(Transform(t24, t25))
+        self.remove(func23, func24)
+        self.play(Transform(func24, func25))
+
+        self.wait(5)
+        self.remove(t23, t24)
+        self.remove(func23, func24)
+        self.play(FadeOut(dot))
+        self.play(FadeOut(self.axes))
+        self.play(Write(thanks))
+        self.wait(3)
