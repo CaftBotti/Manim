@@ -1,6 +1,11 @@
 #!/usr/bin/env python
+# 
+# 
+# This project is for all users to creat Fourier animations quickly. Just import this and write a CONFIG, enjoy the beauty of maths!
+#
+#
 # YOU NEED TO COPY THIS CODE AND IMPORT IT IN YOUR CODE.
-# To use, you can do like this: (Ctrl + / to remove comments)
+# To use, you just need to write a CONFIG: (Ctrl + / to remove comments)
 # class One(FourierOfPaths):
 #     CONFIG = {
 #         'n_vectors': 150,
