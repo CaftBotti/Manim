@@ -1,5 +1,69 @@
 #!/usr/bin/env python
 # YOU NEED TO COPY THIS CODE AND IMPORT IT IN YOUR CODE.
+# To use, you can do like this: (Ctrl + / to remove comments)
+# class One(FourierOfPaths):
+#     CONFIG = {
+#         'n_vectors': 150,
+#         'run_time': 100,
+#         'slow_factor': 0.2,
+#         'tex_class': TextMobject,
+#         'tex': '1',
+#         'include_zoom_camera': True,
+#         'zoom_position': lambda zc: zc.to_corner(DR),
+#         'zoom_factor': 0.1,
+#         'wait_before_start': 3
+#     }
+# class Ani25(FourierOfTexSymbol):
+#     CONFIG = {
+#         'n_vectors': 120,
+#         'run_time': 100,
+#         'slow_factor': 0.05,
+#         'tex_class': TexMobject,
+#         'tex': r'\mathrm{Caft~Botti}',
+#         'include_zoom_camera': True,
+#         'zoom_position': lambda zc: zc.to_corner(DR),
+#         'zoom_factor': 0.1,
+#         'scale_zoom_camera_to_full_screen': True,
+#         'zoom_camera_to_full_screen_config': {
+#             'run_time': 12,
+#             'func': lambda t: there_and_back_with_pause(t, 1 / 10)
+#         },
+#         'wait_before_start': 3
+#     }
+# class Ani22(AbstractFourierOfTexSymbol):
+#     CONFIG = {
+#         'n_vectors': 120,
+#         'run_time': 100,
+#         'slow_factor': 0.05,
+#         'tex_class': TexMobject,
+#         'tex': r'\mathrm{Caft~Botti}',
+#         'include_zoom_camera': True,
+#         'zoom_position': lambda zc: zc.to_corner(UL),
+#         'zoom_factor': 0.1,
+#         'scale_zoom_camera_to_full_screen': True,
+#         'zoom_camera_to_full_screen_config': {
+#             'run_time': 12,
+#             'func': lambda t: there_and_back_with_pause(t, 1 / 10)
+#         },
+#         'wait_before_start': 3
+#     }
+# class Ani24(FourierFromSVG):
+#     CONFIG = {
+#         'n_vectors': 120,
+#         'run_time': 100,
+#         'slow_factor': 0.05,
+#         'file_name': 'caftbotti',
+#         'zoom_position': lambda zc: zc.to_corner(DR),
+#         'zoom_factor': 0.1,
+#         'scale_zoom_camera_to_full_screen': True,
+#         'zoom_camera_to_full_screen_config': {
+#             'run_time': 12,
+#             'func': lambda t: there_and_back_with_pause(t, 1 / 10)
+#         },
+#         'wait_before_start': 3
+#     }
+
+
 
 class FourierCirclesScene(ZoomedScene):
     CONFIG = {
