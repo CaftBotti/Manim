@@ -802,7 +802,6 @@ class CustomPosition(FourierOfTexSymbol):
         },
     }
  
-# o x o x o x o x o x o x o x o x o x o x o x o x o x o x o x o x o x o x o x o x
 # SVG
 class FourierFromSVG(AbstractFourierFromSVG):
     CONFIG = {
