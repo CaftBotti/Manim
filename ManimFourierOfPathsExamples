@@ -3,7 +3,7 @@
 # This code uses the Fourier base: https://github.com/CaftBotti/Manim/blob/main/ManimFourier
 # This code shows number 0~9, A~Z and a~z.
 # You can ignore zoomed camera if you are using FourierOfPaths because it has no effects. But in other modes it's ok.
-# FourierFromSVG mode and FourierTexSymbol mode cannot read shapes or characters contain "annulus" like 0 and 8,9,R correctly.
+# FourierFromSVG mode and FourierTexSymbol mode cannot show shapes or characters contain "annulus", like 0 and 8,9,R correctly.
 
 class One(FourierOfPaths):
     CONFIG = {
