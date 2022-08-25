@@ -1,0 +1,859 @@
+#!/usr/bin/env python
+
+# This code uses the Fourier base: https://github.com/CaftBotti/Manim/blob/main/ManimFourier
+# This code shows number 0~9, A~Z and a~z.
+# You can ignore zoomed camera if you are using FourierOfPaths because it has no effects. But in other modes it's ok.
+# FourierFromSVG mode and FourierTexSymbol mode cannot read shapes or characters contain "annulus" like 0 and 8,9,R correctly.
+
+class One(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '1',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Two(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '2',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Three(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '3',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Four(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '4',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Five(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '5',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Six(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '6',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Seven(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '7',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Eight(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '8',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Nine(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': '9',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class AC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'A',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class BC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'B',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class CC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'C',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class DC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'D',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class EC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'E',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class FC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'F',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'G',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class HC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'H',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class IC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'I',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class JC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'J',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class KC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'K',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class LC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'L',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class MC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'M',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class NC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'N',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class OC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'O',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class PC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'P',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class QC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'Q',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class RC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'R',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class SC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'S',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class TC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'T',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class UC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'U',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class VC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'V',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class WC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'W',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class XC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'X',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class YC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'Y',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class ZC(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'Z',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class AL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'a',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class BL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'b',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class CL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'c',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class DL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'd',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class EL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'e',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class FL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'f',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'g',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class HL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'h',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class IL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'i',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class JL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'j',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class KL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'k',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class LL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'l',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class ML(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'm',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class NL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'n',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class OL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'o',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class PL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'p',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class QL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'q',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class RL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'r',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class SL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 's',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class TL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 't',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class UL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'u',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class VL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'v',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class WL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'w',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class XL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'x',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class YL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'y',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class ZL(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TextMobject,
+        'tex': 'z',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
