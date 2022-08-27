@@ -8,6 +8,8 @@ All the resources are PUBLIC. Everyone can use them.
 
 Now I have more than 82,186 bytes of code. 2843 lines.
 
+Total: 236,241 bytes
+
 I don't want to tell you more.:)
 
 
