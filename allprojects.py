@@ -9,6 +9,7 @@ from manimlib.imports import *
 from from_3b1b.active.diffyq.part2.fourier_series import *
 from from_3b1b.active.diffyq.part4.fourier_series_scenes import *
 from manimlib.fourier import *
+from manimlib.mobject.mobject import *
 
 import numpy as np
 from pydub import AudioSegment
@@ -199,15 +200,15 @@ class Ani5(ThreeDScene):
                      stroke_color=BLACK,
                      stroke_width=3)
         sph1 = Sphere()
-        plot1 = {
-            'y_max': 50,
-            'y_min': 0,
-            'x_max': 50,
-            'x_min': 0,
-            'y_tick_frequency': 5,
-            'x_tick_frequency': 5,
-            'axes_color': BLUE,
-        }
+        # plot1 = {
+        #     'y_max': 50,
+        #     'y_min': 0,
+        #     'x_max': 50,
+        #     'x_min': 0,
+        #     'y_tick_frequency': 5,
+        #     'x_tick_frequency': 5,
+        #     'axes_color': BLUE,
+        # }
         # Animations
         # -----------------
         self.add_sound('beautiful', gain=-11)
@@ -401,9 +402,9 @@ class Ani6(Scene):
                   font='HGB4_CNKI',
                   color=BLUE).scale(2)
         t7.to_edge(UP, buff=1.5)
-        f1 = TexMobject('a^{2} +b^{2}=c^{2}',
-                        font='HGB4_CNKI',
-                        color=BLUE).scale(2)
+        # f1 = TexMobject('a^{2} +b^{2}=c^{2}',
+        #                 font='HGB4_CNKI',
+        #                 color=BLUE).scale(2)
         self.add_sound('beautiful', gain=-11)
 
         self.play(FadeIn(copyright))
@@ -592,12 +593,12 @@ class Ani6(Scene):
 
 class Test(Scene):
     def construct(self):
-        title = Text('Basic arithmetics',
-                     color=YELLOW,
-                     font='HGB4_CNKI').scale(2.3)
-        copyright = Text('Made by CaftBotti',
-                         t2c={'CaftBotti': YELLOW},
-                         font='HGB4_CNKI').scale(2)
+        # title = Text('Basic arithmetics',
+        #              color=YELLOW,
+        #              font='HGB4_CNKI').scale(2.3)
+        # copyright = Text('Made by CaftBotti',
+        #                  t2c={'CaftBotti': YELLOW},
+        #                  font='HGB4_CNKI').scale(2)
         eq1 = Text('1+1=2',
                    font='HGB4_CNKI').scale(0.3)
         eq1.to_edge(DOWN, buff=2.2)
@@ -643,9 +644,9 @@ class Test(Scene):
             r'3^{5} =243',
             font='HGB4_CNKI').scale(0.3)
         eq13.to_edge(DOWN, buff=0.5)
-        eq14 = TexMobject(
-            r'7^{6} =117649',
-            font='HGB4_CNKI').scale(2)
+        # eq14 = TexMobject(
+        #     r'7^{6} =117649',
+        #     font='HGB4_CNKI').scale(2)
         t1 = Text('Additions',
                   font='HGB4_CNKI',
                   color=YELLOW).scale(2)
@@ -747,8 +748,6 @@ class Ani8(GraphScene, MovingCameraScene):
         # MUST BE ADDED IF 2 OR MORE SCENES TOGETHER!
 
     def construct(self):
-
-
         title = Text('Function Graphs',
                      color=YELLOW,
                      font='HGB4_CNKI').scale(2.3)
@@ -885,7 +884,7 @@ class Ani8(GraphScene, MovingCameraScene):
             slant=ITALIC).scale(1)
         t25.move_to([-5.3, 3, 0])
         thanks = Text('Thanks for watching!',
-                      font='HGB4_CNKI',).scale(2)
+                      font='HGB4_CNKI', ).scale(2)
         # numberplane = NumberPlane(x_range = (0, 7),
         #     y_range = (0, 5),
         #     x_length = 7,
@@ -1220,6 +1219,7 @@ class DrawAnAxis(GraphScene, Scene, Axes):
         Scene.setup(self)
         GraphScene.setup(self)
         Axes.get_axes(self)
+
     CONFIG = {
         "graph_origin": ORIGIN,
         "y_line_frequency": 1,
@@ -1402,6 +1402,7 @@ class CoordsToPointExample(Scene):
 class LineGraphExample(CoordinateSystem, Scene):
     def setup(self):
         Scene.setup(self)
+
     def construct(self):
         plane = NumberPlane(
             x_range=(0, 7),
@@ -1426,351 +1427,24 @@ class ANP(Scene):
         self.play(Write(numberplane))
 
 
-class Ani9(Scene):
-    def construct(self):
-        func1 = lambda p: np.array([
-            p[2]/2,
-            p[1]/2,  # If [x] = 1, it's a point center; if [x] = 2, it's a line center; /2 is arrow size
-            0
-        ])
-        func2 = lambda p: np.array([
-            p[1] / 3,
-            p[0] / 2,  # If [x] = 1, it's a point center; if [x] = 2, it's a line center; /2 is arrow size
-            0
-        ])
-        vf1 = VectorField(func1)
-        vf2 = VectorField(func2)
-        self.play(*[GrowArrow(vec) for vec in vf1])
-        self.wait(3)
-
-        self.play(Transform(vf1, vf2))
-
-
-class Ani10(FourierCirclesScene):
-    CONFIG = {
-        "n_circles": 60,
-        "center_point": ORIGIN,
-        "slow_factor": 0.1,
-        "run_time": 30,
-        'tex': r'\sum',
-        'start_drawn': False
-
-    }
-
-    def construct(self):
-        path = self.get_path()
-        coefs = self.get_coefficients_of_path(path)
-
-        circles = self.get_circles(vectors=coefs)
-        for k, circle in zip(it.count(1), circles):
-            circle.set_stroke(width=max(1 / np.sqrt(k), 1))
-            drawn_path = self.get_drawn_path(circles)
-            if self.start_drawn:
-                drawn_path.curr_time = 1 / self.slow_factor
-
-            self.add(path)
-            self.add(circles)
-            self.add(drawn_path)
-            self.wait(self.run_time)
-
-    def setup(self):
-        self.slow_factor_tracker = ValueTracker(
-            self.slow_factor
-        )
-        self.vector_clock = ValueTracker(0)
-        self.vector_clock.add_updater(
-            lambda m, dt: m.increment_value(
-                self.get_slow_factor() * dt
-            )
-        )
-        self.add(self.vector_clock)
-
-    # def get_slow_factor(self):
-    #     return self.slow_factor_tracker.get_value()
-    #
-    # def get_vector_time(self):
-    #     return self.vector_clock.get_value()
-    #
-    # #
-    # def get_freqs(self):
-    #     n = self.n_vectors
-    #     all_freqs = list(range(n // 2, -n // 2, -1))
-    #     all_freqs.sort(key=abs)
-    #     return all_freqs
-    #
-    # def get_coefficients(self):
-    #     return [complex(0) for x in range(self.n_vectors)]
-    #
-    # def get_color_iterator(self):
-    #     return it.cycle(self.colors)
-    #
-    # def get_rotating_vectors(self, freqs=None, coefficients=None):
-    #     vectors = VGroup()
-    #     self.center_tracker = VectorizedPoint(self.center_point)
-    #
-    #     if freqs is None:
-    #         freqs = self.get_freqs()
-    #     if coefficients is None:
-    #         coefficients = self.get_coefficients()
-    #
-    #     last_vector = None
-    #     for freq, coefficient in zip(freqs, coefficients):
-    #         if last_vector:
-    #             center_func = last_vector.get_end
-    #         else:
-    #             center_func = self.center_tracker.get_location
-    #         vector = self.get_rotating_vector(
-    #             coefficient=coefficient,
-    #             freq=freq,
-    #             center_func=center_func,
-    #         )
-    #         vectors.add(vector)
-    #         last_vector = vector
-    #     return vectors
-    #
-    # def get_rotating_vector(self, coefficient, freq, center_func):
-    #     vector = Vector(RIGHT, **self.vector_config)
-    #     vector.scale(abs(coefficient))
-    #     if abs(coefficient) == 0:
-    #         phase = 0
-    #     else:
-    #         phase = np.log(coefficient).imag
-    #     vector.rotate(phase, about_point=ORIGIN)
-    #     vector.freq = freq
-    #     vector.coefficient = coefficient
-    #     vector.center_func = center_func
-    #     vector.add_updater(self.update_vector)
-    #     return vector
-    #
-    # def update_vector(self, vector, dt):
-    #     time = self.get_vector_time()
-    #     coef = vector.coefficient
-    #     freq = vector.freq
-    #     phase = np.log(coef).imag
-    #
-    #     vector.set_length(abs(coef))
-    #     vector.set_angle(phase + time * freq * TAU)
-    #     vector.shift(vector.center_func() - vector.get_start())
-    #     return vector
-    #
-    # def get_circles(self, vectors):
-    #     return VGroup(*[
-    #         self.get_circle(
-    #             vector,
-    #             color=color
-    #         )
-    #         for vector, color in zip(
-    #             vectors,
-    #             self.get_color_iterator()
-    #         )
-    #     ])
-    #
-    # def get_circle(self, vector, color=BLUE):
-    #     circle = Circle(color=color, **self.circle_config)
-    #     circle.center_func = vector.get_start
-    #     circle.radius_func = vector.get_length
-    #     circle.add_updater(self.update_circle)
-    #     return circle
-    #
-    # def update_circle(self, circle):
-    #     circle.set_width(2 * circle.radius_func())
-    #     circle.move_to(circle.center_func())
-    #     return circle
-    #
-    # def get_vector_sum_path(self, vectors, color=YELLOW):
-    #     coefs = [v.coefficient for v in vectors]
-    #     freqs = [v.freq for v in vectors]
-    #     center = vectors[0].get_start()
-    #
-    #     path = ParametricFunction(
-    #         lambda t: center + reduce(op.add, [
-    #             complex_to_R3(
-    #                 coef * np.exp(TAU * 1j * freq * t)
-    #             )
-    #             for coef, freq in zip(coefs, freqs)
-    #         ]),
-    #         t_min=0,
-    #         t_max=1,
-    #         color=color,
-    #         step_size=self.parametric_function_step_size,
-    #     )
-    #     return path
-    #
-    # # TODO, this should be a general animated mobect
-    # def get_drawn_path_alpha(self):
-    #     return self.get_vector_time()
-    #
-    # def get_drawn_path(self, vectors, stroke_width=None, **kwargs):
-    #     if stroke_width is None:
-    #         stroke_width = self.drawn_path_stroke_width
-    #     path = self.get_vector_sum_path(vectors, **kwargs)
-    #     broken_path = CurvesAsSubmobjects(path)
-    #     broken_path.curr_time = 0
-    #
-    #     def update_path(path, dt):
-    #         # alpha = path.curr_time * self.get_slow_factor()
-    #         alpha = self.get_drawn_path_alpha()
-    #         n_curves = len(path)
-    #         for a, sp in zip(np.linspace(0, 1, n_curves), path):
-    #             b = alpha - a
-    #             if b < 0:
-    #                 width = 0
-    #             else:
-    #                 width = stroke_width * (1 - (b % 1))
-    #             sp.set_stroke(width=width)
-    #         path.curr_time += dt
-    #         return path
-    #
-    #     broken_path.set_color(self.drawn_path_color)
-    #     broken_path.add_updater(update_path)
-    #     return broken_path
-    #
-    # def get_y_component_wave(self,
-    #                          vectors,
-    #                          left_x=1,
-    #                          color=PINK,
-    #                          n_copies=2,
-    #                          right_shift_rate=5):
-    #     path = self.get_vector_sum_path(vectors)
-    #     wave = ParametricFunction(
-    #         lambda t: op.add(
-    #             right_shift_rate * t * LEFT,
-    #             path.function(t)[1] * UP
-    #         ),
-    #         t_min=path.t_min,
-    #         t_max=path.t_max,
-    #         color=color,
-    #     )
-    #     wave_copies = VGroup(*[
-    #         wave.copy()
-    #         for x in range(n_copies)
-    #     ])
-    #     wave_copies.arrange(RIGHT, buff=0)
-    #     top_point = wave_copies.get_top()
-    #     wave.creation = ShowCreation(
-    #         wave,
-    #         run_time=(1 / self.get_slow_factor()),
-    #         rate_func=linear,
-    #     )
-    #     cycle_animation(wave.creation)
-    #     wave.add_updater(lambda m: m.shift(
-    #         (m.get_left()[0] - left_x) * LEFT
-    #     ))
-    #
-    #     def update_wave_copies(wcs):
-    #         index = int(
-    #             wave.creation.total_time * self.get_slow_factor()
-    #         )
-    #         wcs[:index].match_style(wave)
-    #         wcs[index:].set_stroke(width=0)
-    #         wcs.next_to(wave, RIGHT, buff=0)
-    #         wcs.align_to(top_point, UP)
-    #     wave_copies.add_updater(update_wave_copies)
-    #
-    #     return VGroup(wave, wave_copies)
-    #
-    # def get_wave_y_line(self, vectors, wave):
-    #     return DashedLine(
-    #         vectors[-1].get_end(),
-    #         wave[0].get_end(),
-    #         stroke_width=1,
-    #         dash_length=DEFAULT_DASH_LENGTH * 0.5,
-    #     )
-    #
-    # # Computing Fourier series
-    # # i.e. where all the math happens
-    # def get_coefficients_of_path(self, path, n_samples=10000, freqs=None):
-    #     if freqs is None:
-    #         freqs = self.get_freqs()
-    #     dt = 1 / n_samples
-    #     ts = np.arange(0, 1, dt)
-    #     samples = np.array([
-    #         path.point_from_proportion(t)
-    #         for t in ts
-    #     ])
-    #     samples -= self.center_point
-    #     complex_samples = samples[:, 0] + 1j * samples[:, 1]
-    #
-    #     result = []
-    #     for freq in freqs:
-    #         riemann_sum = np.array([
-    #             np.exp(-TAU * 1j * freq * t) * cs
-    #             for t, cs in zip(ts, complex_samples)
-    #         ]).sum() * dt
-    #         result.append(riemann_sum)
-    #
-    #     return result
-    #
-    def get_path(self):
-        tex_mob = TexMobject(self.tex)
-        tex_mob.set_height(6)
-        path = tex_mob.family_members_with_points()[0]
-        path.set_fill(opacity=0)
-        path.set_stroke(WHITE, 1)
-        return path
-    #
-    # def add_vectors_circles_path(self):
-    #     path = self.get_path()
-    #     coefs = self.get_coefficients_of_path(path)
-    #     vectors = self.get_rotating_vectors(coefficients=coefs)
-    #     circles = self.get_circles(vectors)
-    #     self.set_decreasing_stroke_widths(circles)
-    #     # approx_path = self.get_vector_sum_path(circles)
-    #     drawn_path = self.get_drawn_path(vectors)
-    #     if self.start_drawn:
-    #         self.vector_clock.increment_value(1)
-    #
-    #     self.add(path)
-    #     self.add(vectors)
-    #     self.add(circles)
-    #     self.add(drawn_path)
-    #
-    #     self.vectors = vectors
-    #     self.circles = circles
-    #     self.path = path
-    #     self.drawn_path = drawn_path
-    #
-    # def run_one_cycle(self):
-    #     time = 1 / self.slow_factor
-    #     self.wait(time)
-    #
-    # def set_decreasing_stroke_widths(self, circles):
-    #     mcsw = self.max_circle_stroke_width
-    #     for k, circle in zip(it.count(1), circles):
-    #         circle.set_stroke(width=max(
-    #             # mcsw / np.sqrt(k),
-    #             mcsw / k,
-    #             mcsw,
-    #         ))
-    #     return circles
-    #
-    # def get_start_points(self):
-    #     x_min = self.x_min
-    #     x_max = self.x_max
-    #     y_min = self.y_min
-    #     y_max = self.y_max
-    #     delta_x = self.delta_x
-    #     delta_y = self.delta_y
-    #     n_repeats = self.n_repeats
-    #     noise_factor = self.noise_factor
-    #
-    #     if noise_factor is None:
-    #         noise_factor = delta_y / 2
-    #     return np.array([
-    #         x * RIGHT + y * UP + noise_factor * np.random.random(3)
-    #         for n in range(n_repeats)
-    #         for x in np.arange(x_min, x_max + delta_x, delta_x)
-    #         for y in np.arange(y_min, y_max + delta_y, delta_y)
-    #     ])
-    #
-    # def get_start(self):
-    #     if self.has_start_tip():
-    #         return self.start_tip.get_start()
-    #     else:
-    #         return VMobject.get_start(self)
-    #
-    # def get_vector(self):
-    #     return self.get_end() - self.get_start()
+# class Ani9(Scene):
+#     def construct(self):
+#         func1 = lambda p: np.array([
+#             p[2] / 2,
+#             p[1] / 2,  # If [x] = 1, it's a point center; if [x] = 2, it's a line center; /2 is arrow size
+#             0
+#         ])
+#         func2 = lambda p: np.array([
+#             p[1] / 3,
+#             p[0] / 2,  # If [x] = 1, it's a point center; if [x] = 2, it's a line center; /2 is arrow size
+#             0
+#         ])
+#         vf1 = VectorField(func1)
+#         vf2 = VectorField(func2)
+#         self.play(*[GrowArrow(vec) for vec in vf1])
+#         self.wait(3)
+#
+#         self.play(Transform(vf1, vf2))
 
 
 class Ani11(FourierOfTexPaths):
@@ -2835,6 +2509,3233 @@ class ZL(FourierOfPaths):
         'slow_factor': 0.2,
         'tex_class': TextMobject,
         'tex': 'z',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class La(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'a',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lb(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'b',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lc(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'c',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ld(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'd',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Le(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'e',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lf(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'f',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lg(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'g',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lh(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'h',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Li(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'i',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lj(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'j',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lk(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'k',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ll(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'l',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lm(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'm',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ln(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'n',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lo(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'o',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lp(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'p',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lq(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'q',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lr(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'r',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ls(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 's',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lt(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 't',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lu(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'u',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lv(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'v',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lw(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'w',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lx(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'x',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ly(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'y',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Lz(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': 'z',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk1(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\alpha',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk2(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\beta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk3(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\gamma',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk4(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\delta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk5(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\epsilon',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk6(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\varepsilon',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk7(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\zeta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk8(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\eta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk9(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\theta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk10(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\vartheta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk11(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\iota',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk12(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\kappa',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk13(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\lambda',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk14(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\mu',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk15(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\nu',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk16(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\xi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk17(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'o',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk18(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\pi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk19(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\varpi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk20(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\rho',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk21(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\varrho',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk22(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\sigma',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk23(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\varsigma',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk24(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\tau',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk25(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\upsilon',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk26(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\phi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk27(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\varphi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk28(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\chi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk29(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\psi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Gk30(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\omega',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC1(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Gamma',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC2(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Delta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC3(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Theta',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC4(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Lambda',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC5(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Xi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC6(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Pi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC7(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Gamma',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC8(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Sigma',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC9(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Upsilon',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC10(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Phi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC11(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Psi',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class GkC12(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\Omega',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op1(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'+',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op2(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'-',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op3(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\times',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op4(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'/',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op5(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'<',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op6(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'>',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op7(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'=',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op8(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\approx',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op9(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\propto',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op10(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\infty',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op11(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\frac{m}{n}',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op12(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\sqrt{m}',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op13(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\int',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op14(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\{ \}',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op15(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\oint',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op16(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\flat',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op17(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\natural',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Op18(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.2,
+        'tex_class': TexMobject,
+        'tex': r'\sharp',
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja1(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'あ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja2(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'い',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja3(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'う',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja4(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 1150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'え',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja5(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'お',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+# TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
+class Ja6(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'か',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja7(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'き',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja8(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'く',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja9(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'け',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja10(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'こ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja11(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'さ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja12(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'し',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja13(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'す',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja14(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'せ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja15(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'そ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja16(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'た',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja17(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ち',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja18(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'つ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja19(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'て',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja20(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'と',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja21(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'な',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja22(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'に',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja23(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ぬ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+# TODO +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+class Ja24(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ね',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja25(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'の',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja26(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'は',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja27(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ひ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja28(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ふ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja29(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'へ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja30(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ほ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja31(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ま',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja32(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'み',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja33(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'む',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja34(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'め',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja35(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'も',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja36(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'や',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja37(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ゆ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja38(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'よ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja39(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ら',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja40(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'り',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja41(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'る',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja42(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'れ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja43(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ろ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja44(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'わ',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja45(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'を',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja46(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ん',
+        "tex_config": {
+            "stroke_color": YELLOW,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+# class Ja47(FourierOfPaths):
+#     CONFIG = {
+#         'n_vectors': 150,
+#         'run_time': 100,
+#         'slow_factor': 0.2,
+#         'tex_class': TextMobject,
+#         'tex': 'ぬ',
+#         'include_zoom_camera': True,
+#         'zoom_position': lambda zc: zc.to_corner(DR),
+#         'zoom_factor': 0.1,
+#         'wait_before_start': 3
+#     }
+
+
+class Ja48(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ア',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja49(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'イ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja50(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ウ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja51(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'エ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja52(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'オ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja53(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'カ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja54(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'キ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+# TODO +++++++++++++++++++++++++++++++++++++++++++++
+
+
+class Ja55(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ク',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja56(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ケ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja57(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'コ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja58(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'サ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja59(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'シ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja60(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ス',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja61(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'セ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja62(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ソ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja63(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'タ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja64(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'チ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja65(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ツ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja66(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'テ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja67(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ト',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja68(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ナ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja69(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ニ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja70(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ヌ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja71(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ネ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja72(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ノ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja73(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ハ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja74(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ヒ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja75(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'フ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja76(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ヘ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja77(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ホ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja78(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'マ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja79(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ミ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja80(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ム',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja81(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'メ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja82(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'モ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja83(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ヤ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja84(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ユ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja85(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ヨ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja86(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ワ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja87(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ヲ',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
+        'include_zoom_camera': True,
+        'zoom_position': lambda zc: zc.to_corner(DR),
+        'zoom_factor': 0.1,
+        'wait_before_start': 3
+    }
+
+
+class Ja88(FourierOfPaths):
+    CONFIG = {
+        'n_vectors': 150,
+        'run_time': 100,
+        'slow_factor': 0.1,
+        'tex_class': TextMobject,
+        'tex': 'ン',
+        "tex_config": {
+            "stroke_color": GREEN,
+            "fill_opacity": 0,
+            "stroke_width": 3,
+        },
+        'circle_config': {
+            'stroke_opacity': 0.5
+        },
+        'time_per_symbol': 10,
         'include_zoom_camera': True,
         'zoom_position': lambda zc: zc.to_corner(DR),
         'zoom_factor': 0.1,
