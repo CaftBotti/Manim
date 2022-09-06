@@ -1,0 +1,23 @@
+self.play(Transform(t3, t4))
+        self.wait()
+        self.remove(eq5), self.play(Transform(eq5, eq7)), self.remove(eq6), self.play(Transform(eq6, eq8))
+        self.wait(3)
+        self.remove(t3, eq7, eq8)
+
+        self.play(Transform(t4, t5))
+        self.wait()
+        self.remove(eq7), self.play(Transform(eq7, eq9)), self.remove(eq8), self.play(Transform(eq8, eq10))
+        self.wait(3)
+        self.remove(t4, eq9, eq10)
+
+        self.play(Transform(t5, t6))
+        self.wait()
+        self.remove(eq9), self.play(Transform(eq9, eq11)), self.remove(eq10), self.play(Transform(eq10, eq12))
+        self.wait(3)
+        self.remove(t4, eq11, eq12)
+
+        self.play(Transform(t6, t7))
+        self.wait()
+        self.remove(eq11), self.play(Transform(eq11, eq13)), self.remove(eq12), self.play(Transform(eq12, eq14))
+        self.wait(3)
+        self.remove(t4, eq11, eq12)

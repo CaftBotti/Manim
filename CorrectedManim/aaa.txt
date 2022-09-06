@@ -1,0 +1,6 @@
+self.play(Transform(txt4, txt5))
+        self.wait(1)
+        self.remove(tri2), self.play(Transform(elli1, sq2))
+
+        self.wait(3)
+        self.remove(txt4)
