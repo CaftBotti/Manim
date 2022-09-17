@@ -1,5 +1,10 @@
 # Manim
+# NEWS: Manim Mixed version is available!
+
+Manim Mixed version is 3b1b/manim + manim cairo backend.
+
 # NEWS: Fourier graphs package is available!
+
 Some manim projects Made by CaftBotti
 
 These files are about shapes, arithmetics and function changes, and so on.
